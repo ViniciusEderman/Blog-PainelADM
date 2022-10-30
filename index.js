@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
+const categoriesController = require('./categories/CategoriesController');
+const articlesController = require('./articles/ArticlesController');
 
 //load view engine:
 app.set('view engine', 'ejs');
@@ -23,6 +25,9 @@ connection
     })
 ;
 
+app.use("/", categoriesController);
+app.use("/", articlesController);
+
 app.get("/", (req, res) => {
 
    //res.send("Teste"); 
@@ -31,5 +36,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(8080, () => {
-    console.log("The server is run!");
+    console.log("server is run!");
 });
