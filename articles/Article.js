@@ -23,6 +23,6 @@ Category.hasMany(Article); // 1 para muitos
 //article pertence a category
 Article.belongsTo(Category); // 1 para 1
 
-Article.sync({force: true});
+//Article.sync({force: true});
 
 module.exports = Article;
