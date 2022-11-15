@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -6,6 +7,7 @@ const categoriesController = require('./categories/CategoriesController');
 const articlesController = require('./articles/ArticlesController');
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
+
 
 //load view engine:
 app.set('view engine', 'ejs');
