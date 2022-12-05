@@ -4,7 +4,8 @@
   "description": "study about nodeJS and others tecnology's",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
     "sequelize": "^6.25.3",
     "slugify": "^1.6.5"
   }
