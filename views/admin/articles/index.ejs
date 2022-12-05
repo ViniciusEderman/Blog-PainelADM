@@ -1,0 +1,39 @@
+<%- include('../../partials/header') -%>
+
+<%- include('../../partials/navbar') -%>
+
+<div class="container">
+    <hr>
+    <h2>Artigos</h2>
+    <br><a class="btn btn-primary" href="/admin/articles/new">Criar um novo artigo</a>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Slug</th>
+                <th>Category</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+    
+        </tbody>
+    </table>
+</div>
+
+<%- include('../../partials/footer') -%>
+
+<script>
+    function deleteCategory(event, form) {
+        event.preventDefault();
+        const decision = confirm("Deseja deletar a categoria?");
+
+        if(decision) {
+            form.submit();
+        }
+    }
+</script>
