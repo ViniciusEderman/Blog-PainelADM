@@ -34,9 +34,35 @@ app.use("/", articlesController);
 
 app.get("/", (req, res) => {
 
-   //res.send("Teste"); 
-   res.render("index");
+   Article.findAll({
+        order: [
+            ['id', 'DESC']
+        ]
+   }).then(articles => {
+        res.render("index", {articles: articles});
+   }).catch(error => {
+        console.log(error);
+   });
+});
 
+app.get("/:slug", (req, res) => {
+    const slug = req.params.slug;
+
+    Article.findOne({
+        where: {
+            slug: slug,
+        }
+    }).then(article => {
+        if(article != undefined) {
+            res.render("articles", {article: article});
+        }
+        else {
+            res.redirect("/");
+        }
+    }).catch(error => {
+        console.log(error);
+        res.redirect("/");
+    })
 });
 
 app.listen(8080, () => {
