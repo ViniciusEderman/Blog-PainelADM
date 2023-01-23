@@ -25,6 +25,10 @@
     </div>
 </div>
 
+<div id="content" style="display: none;">
+    <%- articles.body %>
+</div>
+
 <%- include('../../partials/footer') -%>
 
 <script src="/tinymce/tinymce.min.js"></script>
@@ -35,6 +39,9 @@
         branding: false,
         plugins: [
             'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'  
-        ]
+        ],
+        init_instance_callback: () => {
+            tinymce.activeEditor.setContent(document.getElementById('content').innerHTML);
+        }
     });
 </script>
