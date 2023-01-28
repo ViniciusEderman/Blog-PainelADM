@@ -64,22 +64,22 @@ router.post("/articles/delete", (req, res) => {
 });
 
 router.get("/admin/articles/edit/:id", (req, res) => {
-
     const id = req.params.id;
 
-    Article.findByPk(id).then((article) => { // pesquisa pelo id
+    Article.findByPk(id).then(article => {
         if(article != undefined) {
+
             Category.findAll().then(categories => {
-                res.render("admin/articles/edit", { categories: categories});
-            })
+                res.render("admin/articles/edit", {article : article, categories: categories});
+            });
+
         } else {
             res.redirect("/");
         }
-    }).catch(err => {
+    }).catch(error => {
+        console.log(error);
         res.redirect("/");
-        console.log(err);
     });
 });
-
 
 module.exports = router;
