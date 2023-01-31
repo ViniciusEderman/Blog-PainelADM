@@ -114,6 +114,9 @@ router.get("/articles/page/:pageNum", (req, res) => {
         {
             limit: 8,   // limita a quantidade de dados que serão mostrados
             offset: offset,
+            order: [
+                ['id', 'DESC']
+            ],
         }
     ).then(articles => {      //pesquisa e retorna a quantidade de elementos da tabela
 
