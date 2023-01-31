@@ -100,4 +100,38 @@ router.post("/articles/update", (req, res) => {
     })
 });
 
+router.get("/articles/page/:pageNum", (req, res) => {
+    const page = req.params.pageNum;
+    let offset = 0;
+    
+    if(isNaN(page) || page == 1) {
+        offset = 0;
+    } else {
+        offset = parseInt(page) * 8;
+    }
+
+    Article.findAndCountAll(
+        {
+            limit: 8,   // limita a quantidade de dados que serão mostrados
+            offset: offset,
+        }
+    ).then(articles => {      //pesquisa e retorna a quantidade de elementos da tabela
+
+        let next;
+
+        if(offset + 8 >= articles.count) {
+            next = false;
+        } else {
+            next = true;
+        }
+
+        let results = {
+            next: next,
+            articles: articles,
+
+        }
+        res.json(results);   //retorna um arquivo json no browser 
+    }) 
+});
+
 module.exports = router;
