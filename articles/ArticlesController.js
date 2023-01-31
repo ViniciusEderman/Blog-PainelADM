@@ -130,7 +130,10 @@ router.get("/articles/page/:pageNum", (req, res) => {
             articles: articles,
 
         }
-        res.json(results);   //retorna um arquivo json no browser 
+
+        Category.findAll().then(categories => {
+            res.render("admin/articles/page", {results: results, categories: categories})
+        });
     }) 
 });
 
