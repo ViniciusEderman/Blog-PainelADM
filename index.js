@@ -1,12 +1,18 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
+
 const categoriesController = require('./categories/CategoriesController');
 const articlesController = require('./articles/ArticlesController');
+const usersController = require('./users/UserController');
+
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
+const User = require('./users/User');
+
 
 
 //load view engine:
@@ -31,6 +37,7 @@ connection
 
 app.use("/", categoriesController);
 app.use("/", articlesController);
+app.use("/", usersController);
 
 app.get("/", (req, res) => {
 
