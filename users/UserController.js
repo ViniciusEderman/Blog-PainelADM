@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("./User");
 const bcrypt = require("bcryptjs");
+const { where } = require("sequelize");
 
 router.get("/admin/users", (req, res) => {
 
@@ -47,5 +48,36 @@ router.post("/users/create", (req, res) => {
     })
 
 });
+
+router.get("/login", (req, res) => {
+    res.render("admin/users/login");
+});
+
+
+router.post("/autenticacao", (req, res) => {
+
+    let email = req.body.email;
+    let password = req.body.password;
+
+    User.findOne({where:{email: email}}).then(user => {
+
+        if(user != undefined) {
+            let validation = bcrypt.compareSync(password, user.password);
+
+            if(validation) {
+                req.session.user = {
+                    id: user.id,
+                    email: user.email,
+                }
+                res.json(req.session.user);
+            } else {
+                res.redirect("/login");
+            }
+        } else {
+            res.redirect("/login");
+        }
+    });
+})
+
     
 module.exports = router;
