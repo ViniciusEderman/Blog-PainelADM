@@ -3,8 +3,9 @@ const router = express.Router();
 const Category = require("../categories/Category");
 const Article = require("./Article");
 const slugify = require("slugify");
+const autenticacaoAdmin = require("../middleware/autorizacaoAdmin");
 
-router.get("/admin/articles", (req, res) => {
+router.get("/admin/articles", autenticacaoAdmin, (req, res) => {
     
     Article.findAll({
         include: [{model: Category,}]
@@ -14,7 +15,7 @@ router.get("/admin/articles", (req, res) => {
     });
 });
 
-router.get("/admin/articles/new", (req, res) => {
+router.get("/admin/articles/new", autenticacaoAdmin, (req, res) => {
 
     Category.findAll().then(categories => {
         res.render("admin/articles/new", 
@@ -22,7 +23,7 @@ router.get("/admin/articles/new", (req, res) => {
     })
 });
 
-router.post("/articles/save", (req, res) => {
+router.post("/articles/save", autenticacaoAdmin, (req, res) => {
     const title = req.body.title;
     const body = req.body.body;
     const category = req.body.category;
@@ -40,7 +41,7 @@ router.post("/articles/save", (req, res) => {
     }); 
 });
 
-router.post("/articles/delete", (req, res) => {
+router.post("/articles/delete", autenticacaoAdmin, (req, res) => {
 
     const id = req.body.id;
 
@@ -63,7 +64,7 @@ router.post("/articles/delete", (req, res) => {
     }
 });
 
-router.get("/admin/articles/edit/:id", (req, res) => {
+router.get("/admin/articles/edit/:id", autenticacaoAdmin, (req, res) => {
     const id = req.params.id;
 
     Article.findByPk(id).then(article => {
@@ -82,7 +83,7 @@ router.get("/admin/articles/edit/:id", (req, res) => {
     });
 });
 
-router.post("/articles/update", (req, res) => {
+router.post("/articles/update", autenticacaoAdmin, (req, res) => {
     const id = req.body.id;
     const title = req.body.title;
     const body = req.body.body;
