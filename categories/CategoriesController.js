@@ -58,10 +58,6 @@ router.post("/categories/delete", (req, res) => {
 router.get("/admin/categories/edit/:id", (req, res) => {
     const id = req.params.id;
 
-    /*if(isNaN(id)){
-        res.redirect("/admin/categories");
-    } */
-
     Category.findByPk(id).then((category) => { // pesquisa pelo id
         if(category != undefined) {
             res.render("admin/categories/edit", {category: category});
